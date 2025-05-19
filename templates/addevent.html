@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block title %}Додати подію{% endblock %}
+{% block content %}
+<div class="form-container">
+    <h2 class="mb-4">Додати нову подію</h2>
+    <form method="POST" action="{{ url_for('addevent') }}">
+        <div class="form-group">
+            <label for="title">Назва події</label>
+            <input type="text" class="form-control" id="title" name="title" required>
+        </div>
+        <div class="form-group">
+            <label for="description">Опис</label>
+            <textarea class="form-control" id="description" name="description" rows="3" required></textarea>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="start_date">Початок</label>
+                <input type="datetime-local" class="form-control" id="start_date" name="start_date" required>
+            </div>
+            <div class="form-group col-md-6">
+                <label for="end_date">Кінець</label>
+                <input type="datetime-local" class="form-control" id="end_date" name="end_date" required>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="location">Локація</label>
+            <input type="text" class="form-control" id="location" name="location" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Додати подію</button>
+        <a href="{{ url_for('events') }}" class="btn btn-secondary">Скасувати</a>
+    </form>
+</div>
+{% endblock %} 

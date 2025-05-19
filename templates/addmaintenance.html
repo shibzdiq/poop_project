@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block title %}Додати проблему з обслуговуванням{% endblock %}
+{% block content %}
+<div class="form-container">
+    <h2 class="mb-4">Додати проблему з обслуговуванням</h2>
+    <form method="POST" action="{{ url_for('addmaintenance') }}">
+        <div class="mb-3">
+            <label for="store_id" class="form-label">Магазин</label>
+            <select class="form-select" id="store_id" name="store_id" required>
+                <option value="">Оберіть магазин</option>
+                {% for store in stores %}
+                <option value="{{ store.id }}">{{ store.name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="mb-3">
+            <label for="issue_type" class="form-label">Тип проблеми</label>
+            <select class="form-select" id="issue_type" name="issue_type" required>
+                <option value="">Оберіть тип проблеми</option>
+                <option value="Electrical">Електрика</option>
+                <option value="Plumbing">Сантехніка</option>
+                <option value="HVAC">Вентиляція/Кондиціювання</option>
+                <option value="Structural">Будівельні роботи</option>
+                <option value="Cleaning">Прибирання</option>
+                <option value="Other">Інше</option>
+            </select>
+        </div>
+        <div class="mb-3">
+            <label for="description" class="form-label">Опис</label>
+            <textarea class="form-control" id="description" name="description" rows="4" required></textarea>
+        </div>
+        <div class="d-flex justify-content-between">
+            <a href="{{ url_for('maintenance') }}" class="btn btn-secondary">Скасувати</a>
+            <button type="submit" class="btn btn-primary">Додати проблему</button>
+        </div>
+    </form>
+</div>
+{% endblock %} 

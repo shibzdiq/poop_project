@@ -1,32 +1,28 @@
-<!doctype html>
-<html>
-   <body>
-
-      <table border = 1>
-         <thead>
-            <td>Name</td>
-            <td>Address</td>
-            <td>city</td>
-            <td>Pincode</td>
-            <td>bg</td>
-            <td>email</td>
-            <td>pass</td>
-         </thead>
-
-         {% for row in rows %}
+{% extends "base.html" %}
+{% block title %}Список користувачів{% endblock %}
+{% block content %}
+<div class="container mt-4">
+    <h2 class="mb-4">Список користувачів</h2>
+    <table class="table table-bordered table-striped">
+        <thead class="thead-dark">
             <tr>
-               <td>{{row["name"]}}</td>
-               <td>{{row["addr"]}}</td>
-               <td> {{ row["city"]}}</td>
-               <td>{{row['pin']}}</td>
-               <td>{{row['bg']}}</td>
-               <td>{{row['email']}}</td>
-               <td>{{row['pass']}}</td>
+                <th>Ім'я</th>
+                <th>Email</th>
+                <th>Телефон</th>
+                <th>Роль</th>
             </tr>
-         {% endfor %}
-      </table>
-
-      <a href = "/">Go back to home page</a>
-
-   </body>
-</html>
+        </thead>
+        <tbody>
+            {% for row in rows %}
+            <tr>
+                <td>{{ row["name"] }}</td>
+                <td>{{ row["email"] }}</td>
+                <td>{{ row["phone"] }}</td>
+                <td>{{ row["role"] }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <a href="{{ url_for('index') }}" class="btn btn-secondary mt-3">На головну</a>
+</div>
+{% endblock %}

@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+{% block title %}Додати магазин{% endblock %}
+{% block content %}
+<div class="form-container">
+    <h2 class="mb-4">Додати магазин</h2>
+    <form method="POST" action="{{ url_for('addstore') }}">
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="store_name">Назва магазину</label>
+                <input type="text" class="form-control" id="store_name" name="store_name" required>
+            </div>
+            <div class="form-group col-md-6">
+                <label for="category">Категорія</label>
+                <select class="form-control" id="category" name="category" required>
+                    <option value="Fashion">Одяг</option>
+                    <option value="Electronics">Електроніка</option>
+                    <option value="Food">Їжа</option>
+                    <option value="Home">Дім</option>
+                    <option value="Beauty">Краса та здоров'я</option>
+                    <option value="Sports">Спорт</option>
+                    <option value="Other">Інше</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="floor">Поверх</label>
+                <input type="number" class="form-control" id="floor" name="floor" required>
+            </div>
+            <div class="form-group col-md-6">
+                <label for="area">Площа (кв.м)</label>
+                <input type="number" class="form-control" id="area" name="area" step="0.01" required>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="owner_name">Власник</label>
+                <input type="text" class="form-control" id="owner_name" name="owner_name" required>
+            </div>
+            <div class="form-group col-md-6">
+                <label for="owner_phone">Телефон власника</label>
+                <input type="tel" class="form-control" id="owner_phone" name="owner_phone" required>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="owner_email">Email власника</label>
+            <input type="email" class="form-control" id="owner_email" name="owner_email" required>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="rent_start">Початок оренди</label>
+                <input type="date" class="form-control" id="rent_start" name="rent_start" required>
+            </div>
+            <div class="form-group col-md-6">
+                <label for="rent_end">Кінець оренди</label>
+                <input type="date" class="form-control" id="rent_end" name="rent_end" required>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="monthly_rent">Місячна оренда</label>
+            <input type="number" class="form-control" id="monthly_rent" name="monthly_rent" step="0.01" required>
+        </div>
+        <div class="d-flex justify-content-between">
+            <a href="{{ url_for('index') }}" class="btn btn-secondary">Скасувати</a>
+            <button type="submit" class="btn btn-primary">Додати магазин</button>
+        </div>
+    </form>
+</div>
+{% endblock %} 

@@ -1,50 +1,49 @@
-# Blood-Bank
-Blood bank website made with [python3](https://www.python.org/download/releases/3.0/) ,[flask](http://flask.pocoo.org/), [Sqlite](https://www.sqlite.org/index.html), [Bootstrap](https://getbootstrap.com). 
+# Інформаційна система торгового центру
 
-The web app was made for the project under the  CSE 5th semester course DBMS (Database Management Systems) of [MSRIT](http://www.msrit.edu/) banglore.
+Веб-додаток для обліку магазинів, подій, оренди та обслуговування у торговому центрі. Реалізовано на Python (Flask), SQLite, Bootstrap.
 
-Some of the functionality which can be benefited by being a User is listed below
+## Основні можливості
 
-1. User Registration and Login, Logout.
-2. Update your Profile , Delete your account.
-3. Request/contact for Blood.
-4. Notification's for Requests.
-5. Search for Blood.
+- Додавання, редагування, видалення магазинів
+- Ведення обліку власників, оренди, площі, статусу магазинів
+- Управління подіями торгового центру (створення, редагування, видалення)
+- Облік проблем з обслуговуванням (реєстрація, зміна статусу, історія)
+- Пошук магазинів за різними критеріями
+- Аутентифікація користувачів (адміністратор, користувач)
 
-NOTE : admin's credentials
+## Інструкція з запуску
 
-1. Email : admin@bloodbank.com
-2. Password : admin
+1. Клонувати репозиторій та перейти у директорію проекту:
+   ```bash
+   git clone <repo-url>
+   cd Blood-Bank
+   ```
+2. Створити та активувати віртуальне середовище:
+   ```bash
+   python -m venv venv
+   venv\Scripts\activate  # Windows
+   # або
+   source venv/bin/activate  # Linux/Mac
+   ```
+3. Встановити залежності:
+   ```bash
+   pip install -r requirements.txt
+   ```
+4. Ініціалізувати базу даних:
+   ```bash
+   python init_db.py
+   ```
+5. Запустити сервер:
+   ```bash
+   python server.py
+   ```
+6. Відкрити у браузері: http://127.0.0.1:5000/
 
-Functionality for Admin is listed below
+## Дефолтний адміністратор
 
-1. Dashboard
-2. Add blood in the Blood Bank
-3. Edit blood donatations and their details
-4. Contact registered users
-5. Delete users/entries
+- Email: admin@mall.com
+- Пароль: admin
 
-Instructions:
+## Ліцензія
 
-1. clone the repository and navigate to the directory 
-
-2. Create a virtual environment 
-```python
-python3 -m venv venv && source venv/bin/activate
-```
-
-2. Install the dependencies
-
-```python
- pip install -r requirements.txt
-```
-3. Start the server
-
-```python
- python3 server.py
-```
-4. Hurray!!.. Donote Blood.
-
-
-
-
+MIT

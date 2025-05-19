@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block title %}Редагування події{% endblock %}
+{% block content %}
+<div class="form-container">
+    <h2 class="mb-4">Редагування події</h2>
+    <form method="POST" action="{{ url_for('editevent', id=event.id) }}">
+        <div class="form-group">
+            <label for="title">Назва події</label>
+            <input type="text" class="form-control" id="title" name="title" value="{{ event.title }}" required>
+        </div>
+        <div class="form-group">
+            <label for="description">Опис</label>
+            <textarea class="form-control" id="description" name="description" rows="3" required>{{ event.description }}</textarea>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="start_date">Початок</label>
+                <input type="datetime-local" class="form-control" id="start_date" name="start_date" value="{{ event.start_date }}" required>
+            </div>
+            <div class="form-group col-md-6">
+                <label for="end_date">Кінець</label>
+                <input type="datetime-local" class="form-control" id="end_date" name="end_date" value="{{ event.end_date }}" required>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="location">Локація</label>
+            <input type="text" class="form-control" id="location" name="location" value="{{ event.location }}" required>
+        </div>
+        <div class="form-group">
+            <label for="status">Статус</label>
+            <select class="form-control" id="status" name="status" required>
+                <option value="Upcoming" {% if event.status == 'Upcoming' %}selected{% endif %}>Заплановано</option>
+                <option value="Ongoing" {% if event.status == 'Ongoing' %}selected{% endif %}>Триває</option>
+                <option value="Completed" {% if event.status == 'Completed' %}selected{% endif %}>Завершено</option>
+                <option value="Cancelled" {% if event.status == 'Cancelled' %}selected{% endif %}>Скасовано</option>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Зберегти зміни</button>
+        <a href="{{ url_for('events') }}" class="btn btn-secondary">Скасувати</a>
+    </form>
+</div>
+{% endblock %} 

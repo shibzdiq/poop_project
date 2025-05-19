@@ -1,219 +1,185 @@
-{% extends "base.html" %} {% block content %}
-
-<div class="container-fluid">
-  <center>
-    <div class="card text-left mt-3" style="width: 35rem">
-      <div class="card-body">
-        <form class="form-group" action="{{url_for('index')}}" method="POST">
-          <label for="sel"> Search by:</label>
-          <select
-            name="type"
-            class="form-control"
-            id="exampleFormControlSelect1"
-            required
-          >
-            <option value="blood">blood group</option>
-            <option value="donorname">donorname</option></select
-          ><br />
-          <input
-            class="form-control mr-sm-2"
-            type="search"
-            name="search"
-            placeholder="Search"
-            aria-label="Search"
-            required
-          /><br />
-          <center>
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
-              Search
-            </button>
-          </center>
-        </form>
-      </div>
+{% extends "base.html" %}
+{% block title %}Магазини торгового центру{% endblock %}
+{% block content %}
+<style>
+    body {
+        background: linear-gradient(120deg, #f8fafc 0%, #e0e7ff 100%);
+    }
+    .hero-header {
+        background: linear-gradient(90deg, #6366f1 0%, #60a5fa 100%);
+        color: #fff;
+        border-radius: 1rem;
+        padding: 2.5rem 2rem 2rem 2rem;
+        margin-bottom: 2.5rem;
+        box-shadow: 0 8px 32px 0 rgba(99,102,241,0.15);
+        display: flex;
+        align-items: center;
+        gap: 2rem;
+    }
+    .hero-header .icon {
+        font-size: 3.5rem;
+        background: rgba(255,255,255,0.15);
+        border-radius: 50%;
+        padding: 1.2rem;
+        margin-right: 1.5rem;
+        box-shadow: 0 4px 16px 0 rgba(99,102,241,0.10);
+    }
+    .hero-header h1 {
+        font-weight: 700;
+        font-size: 2.5rem;
+        margin-bottom: 0.5rem;
+    }
+    .hero-header p {
+        font-size: 1.2rem;
+        margin-bottom: 0;
+    }
+    .search-section {
+        background: #fff;
+        border-radius: 1rem;
+        box-shadow: 0 2px 12px 0 rgba(99,102,241,0.07);
+        padding: 1.5rem 2rem;
+        margin-bottom: 2rem;
+    }
+    .store-card {
+        border: none;
+        border-radius: 1rem;
+        box-shadow: 0 4px 24px 0 rgba(99,102,241,0.10);
+        transition: transform 0.15s, box-shadow 0.15s;
+        background: #fff;
+    }
+    .store-card:hover {
+        transform: translateY(-6px) scale(1.03);
+        box-shadow: 0 8px 32px 0 rgba(99,102,241,0.18);
+    }
+    .store-card .card-title {
+        font-weight: 600;
+        color: #3730a3;
+    }
+    .store-card .card-text strong {
+        color: #6366f1;
+    }
+    .btn-success {
+        background: linear-gradient(90deg, #22d3ee 0%, #6366f1 100%);
+        border: none;
+        font-weight: 600;
+        letter-spacing: 0.5px;
+        box-shadow: 0 2px 8px 0 rgba(34,211,238,0.10);
+    }
+    .btn-success:hover {
+        background: linear-gradient(90deg, #6366f1 0%, #22d3ee 100%);
+    }
+    @media (max-width: 768px) {
+        .hero-header { flex-direction: column; text-align: center; gap: 1rem; }
+        .hero-header .icon { margin-right: 0; }
+    }
+</style>
+<div class="hero-header mb-4">
+    <span class="icon">
+        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="none" viewBox="0 0 24 24"><path fill="#fff" d="M12 2C7.03 2 3 6.03 3 11c0 5.25 6.13 10.74 8.39 12.62.37.3.85.3 1.22 0C14.87 21.74 21 16.25 21 11c0-4.97-4.03-9-9-9Zm0 17.88C9.09 17.13 5 13.39 5 11c0-3.86 3.14-7 7-7s7 3.14 7 7c0 2.39-4.09 6.13-7 8.88Z"/><circle cx="12" cy="11" r="3" fill="#fff"/></svg>
+    </span>
+    <div>
+        <h1>Магазини торгового центру</h1>
+        <p>Зручний пошук, сучасний вигляд, швидке керування магазинами та орендою.</p>
     </div>
-  </center>
 </div>
-<div class="container-fluid mb-2 mt-2">
-  {% if search!=NULL %}
-  <nav aria-label="breadcrumb">
-    <ol class="breadcrumb">
-      <li class="breadcrumb-item active" aria-current="page">
-        Search results:
-      </li>
-    </ol>
-  </nav>
-
-  <center>
-    {% for s in search %}
-    <div class="card text-left" style="width: 70rem">
-      <div class="card-header">{{s["name"]}}</div>
-      <div class="card-body ml-3">
-        <h5 class="card-title ml-3">{{s['email']}}</h5>
-        <h6 class="card-subtitle mb-2 ml-3 text-muted">
-          Blood Group: {{s['bg']}}
-        </h6>
-        <p class="card-text ml-3">
-          Address: {{s["addr"]}} {{ s["city"]}} {{s['pin']}}
-          <br />
-
-          {% if session['username'] == s['email']%}
-
-          <span
-            class="d-inline-block"
-            data-toggle="popover"
-            data-content="Disabled popover"
-          >
-            <button
-              class="btn btn-primary mt-2 content-justify-end"
-              style="pointer-events: none"
-              type="button"
-              disabled
-            >
-              contact for blood
-            </button>
-          </span>
-
-          {% elif session['logged_in'] == True %}
-
-          <button
-            type="button"
-            class="btn btn-primary mt-1 content-justify-end"
-            data-toggle="modal"
-            data-target="#exampleModalCenter"
-          >
-            contact for blood
-          </button>
-        </p>
-
-        {% endif %}
-      </div>
-      <br />
-      {% endfor %} {% endif %}
-    </div>
-  </center>
-</div>
-<div class="container-fluid">
-  <!-- Content here -->
-  <nav aria-label="breadcrumb">
-    <ol class="breadcrumb">
-      <li class="breadcrumb-item active" aria-current="page">
-        Registered donores:
-      </li>
-    </ol>
-  </nav>
-
-  <center>
-    {% for row in rows %}
-    <div class="card text-left" style="width: 70rem">
-      <div class="card-header">{{row["name"]}}</div>
-      <div class="card-body ml-3">
-        <h5 class="card-title ml-3">{{row['email']}}</h5>
-        <h6 class="card-subtitle mb-2 ml-3 text-muted">
-          Blood Group: {{row['bg']}}
-        </h6>
-        <p class="card-text ml-3">
-          Address: {{row["addr"]}} {{ row["city"]}} {{row['pin']}}
-          <br />
-          {% if session['username'] == row['email']%}
-
-          <span
-            class="d-inline-block"
-            data-toggle="popover"
-            data-content="Disabled popover"
-          >
-            <button
-              class="btn btn-primary mt-2"
-              style="pointer-events: none"
-              type="button"
-              disabled
-            >
-              contact for blood
-            </button>
-          </span>
-
-          {% elif session['logged_in'] == True %}
-          <button
-            type="button"
-            class="btn btn-primary mt-1"
-            onclick="send_notification_clicked('{{row['email']}}');"
-            data-toggle="modal"
-            data-target="#exampleModalCenter"
-            
-          >
-            contact for blood
-          </button>
-        </p>
-
-        <div
-          class="modal fade"
-          id="exampleModalCenter"
-          tabindex="-1"
-          role="dialog"
-          aria-labelledby="exampleModalCenterTitle"
-          aria-hidden="true"
-        >
-          <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalCenterTitle">
-                  contact for blood
-                </h5>
-                <button
-                  type="button"
-                  class="close"
-                  data-dismiss="modal"
-                  aria-label="Close"
-                >
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
-              <div class="modal-body">
-                <form
-                  id="contactform"
-                  method="POST"
-                  action=""
-                >
-                  <label for="name">Name</label>
-                  <input type="text" name="nm" class="form-control" required />
-                  <label for="addr"> confirm your Address</label>
-                  <textarea name="add" class="form-control" required></textarea>
-
-                  <button
-                    class="btn btn-outline-success my-2 my-sm-0"
-                    type="submit"
-                  >
-                    Submit
-                  </button>
-                  <button
-                    type="button"
-                    class="btn btn-secondary mt-1"
-                    data-dismiss="modal"
-                  >
-                    Close
-                  </button>
-                </form>
-              </div>
+<div class="search-section mb-4">
+    <form method="POST" action="{{ url_for('index') }}">
+        <div class="form-row align-items-center">
+            <div class="col-md-4 mb-2 mb-md-0" id="search-input-col">
+                <input type="text" name="search" class="form-control form-control-lg" placeholder="Пошук магазину, категорії чи власника..." id="search-input">
+                <select name="search_category" class="form-control form-control-lg d-none mt-2" id="category-select">
+                    <option value="Fashion">Одяг</option>
+                    <option value="Electronics">Електроніка</option>
+                    <option value="Food">Їжа</option>
+                    <option value="Home">Дім</option>
+                    <option value="Beauty">Краса та здоров'я</option>
+                    <option value="Sports">Спорт</option>
+                    <option value="Other">Інше</option>
+                </select>
             </div>
-          </div>
+            <div class="col-md-4 mb-2 mb-md-0">
+                <select name="type" class="form-control form-control-lg" id="search-type">
+                    <option value="store_name">Назва магазину</option>
+                    <option value="category">Категорія</option>
+                    <option value="owner">Власник</option>
+                </select>
+            </div>
+            <div class="col-md-4">
+                <button type="submit" class="btn btn-success btn-block btn-lg">Пошук</button>
+            </div>
         </div>
-
-        {% endif %}
-      </div>
+    </form>
+</div>
+<script>
+    const searchType = document.getElementById('search-type');
+    const searchInput = document.getElementById('search-input');
+    const categorySelect = document.getElementById('category-select');
+    searchType.addEventListener('change', function() {
+        if (this.value === 'category') {
+            searchInput.classList.add('d-none');
+            categorySelect.classList.remove('d-none');
+            categorySelect.setAttribute('name', 'search');
+            searchInput.removeAttribute('name');
+        } else {
+            searchInput.classList.remove('d-none');
+            searchInput.setAttribute('name', 'search');
+            categorySelect.classList.add('d-none');
+            categorySelect.removeAttribute('name');
+        }
+    });
+</script>
+{% if search_results %}
+<h3 class="mb-3">Результати пошуку</h3>
+<div class="row">
+    {% for store in search_results %}
+    <div class="col-md-4">
+        <div class="card store-card mb-4">
+            <div class="card-body">
+                <h5 class="card-title">{{ store.name }}</h5>
+                <p class="card-text">
+                    <strong>Категорія:</strong> {{ store.category }}<br>
+                    <strong>Поверх:</strong> {{ store.floor }}<br>
+                    <strong>Власник:</strong> {{ store.owner_name }}<br>
+                    <strong>Статус:</strong> {{ store.status }}
+                </p>
+                {% if session.get('admin') %}
+                <a href="{{ url_for('editstore', id=store.id) }}" class="btn btn-primary">Редагувати</a>
+                {% endif %}
+            </div>
+        </div>
     </div>
-    <br />
     {% endfor %}
-  </center>
 </div>
-
-{% with messages = get_flashed_messages() %} {%if messages%} {%for mess in
-messages%}
-<div class="alert alert-success alert-dismissible fade show" role="alert">
-  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-    <span aria-hidden="true">&times;</span>
-  </button>
-  {{mess}}
+{% endif %}
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h3>Всі магазини</h3>
+    {% if session.get('admin') %}
+    <a href="{{ url_for('addstore') }}" class="btn btn-success">Додати магазин</a>
+    {% endif %}
 </div>
-
-{%endfor%} {%endif%} {% endwith %} {% endblock %}
+<div class="row">
+    {% for store in stores %}
+    <div class="col-md-4">
+        <div class="card store-card mb-4">
+            <div class="card-body">
+                <h5 class="card-title">{{ store.name }}</h5>
+                <p class="card-text">
+                    <strong>Категорія:</strong> {{ store.category }}<br>
+                    <strong>Поверх:</strong> {{ store.floor }}<br>
+                    <strong>Власник:</strong> {{ store.owner_name }}<br>
+                    <strong>Статус:</strong> {{ store.status }}
+                </p>
+                {% if session.get('admin') %}
+                <a href="{{ url_for('editstore', id=store.id) }}" class="btn btn-primary">Редагувати</a>
+                <form method="POST" action="{{ url_for('deletestore', id=store.id) }}" style="display:inline-block;">
+                    <button type="submit" class="btn btn-danger" onclick="return confirm('Ви впевнені, що хочете видалити цей магазин?');">Видалити</button>
+                </form>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}
 
 
